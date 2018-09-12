@@ -135,7 +135,7 @@ func MakeCodec() *wire.Codec {
 	const msgTypeAddDidMsg = 0xA
 
 	const msgTypeCreateProjectMsg = 0x10
-	const msgTypeUpdateProjectMsg = 0x19
+	const msgTypeUpdateProjectStatusMsg = 0x19
 	const msgTypeCreateAgentMsg = 0x11
 	const msgTypeUpdateAgentMsg = 0x12
 	const msgTypeCreateClaimMsg = 0x13
@@ -159,6 +159,7 @@ func MakeCodec() *wire.Codec {
 		oldwire.ConcreteType{did.AddCredentialMsg{}, msgTypeAddCredentialMsg},
 
 		oldwire.ConcreteType{project.CreateProjectMsg{}, msgTypeCreateProjectMsg},
+		oldwire.ConcreteType{project.UpdateProjectStatusMsg{}, msgTypeUpdateProjectStatusMsg},
 		oldwire.ConcreteType{project.CreateAgentMsg{}, msgTypeCreateAgentMsg},
 		oldwire.ConcreteType{project.UpdateAgentMsg{}, msgTypeUpdateAgentMsg},
 		oldwire.ConcreteType{project.CreateClaimMsg{}, msgTypeCreateClaimMsg},
