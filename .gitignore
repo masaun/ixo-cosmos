@@ -1,6 +1,4 @@
-vendor
-
-build/*
+src/build
 
 data
 

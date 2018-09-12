@@ -135,6 +135,7 @@ func MakeCodec() *wire.Codec {
 	const msgTypeAddDidMsg = 0xA
 
 	const msgTypeCreateProjectMsg = 0x10
+	const msgTypeUpdateProjectMsg = 0x19
 	const msgTypeCreateAgentMsg = 0x11
 	const msgTypeUpdateAgentMsg = 0x12
 	const msgTypeCreateClaimMsg = 0x13
