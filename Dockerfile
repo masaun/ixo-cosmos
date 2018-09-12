@@ -5,7 +5,6 @@ ARG COMMIT_HASH=''
 
 COPY ./src $SRC_DIR
 COPY ./bin/startBlockchain.sh $SRC_DIR/bin/
-COPY ./Makefile $SRC_DIR
 RUN mkdir $SRC_DIR/data
 
 RUN go get github.com/btcsuite/btcutil/base58 golang.org/x/crypto/ed25519
