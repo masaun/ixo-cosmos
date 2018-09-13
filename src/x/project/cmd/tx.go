@@ -2,6 +2,7 @@ package commands
 
 import (
 	"bytes"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 
@@ -38,8 +39,42 @@ func ixoSignAndBroadcast(cdc *wire.Codec, ctx core.CoreContext, msg sdk.Msg, sov
 	if err != nil {
 		panic(err)
 	}
+
+	var txMap map[string]interface{}
+	if err := json.Unmarshal(bz, &txMap); err != nil {
+		panic(err)
+	}
+	fmt.Println(">txMap : ", txMap)
+	txPayload := txMap["payload"].([]interface{})
+	txType := txPayload[0]
+	txMessage := txPayload[1]
+	txSignature := txMap["signature"]
+
+	txMessageJSON, err := json.Marshal(txMessage)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(">txPayload : ", txPayload)
+	fmt.Println(">txType : ", txType)
+	fmt.Println(">txMessage : ", txMessage)
+	fmt.Println(">txSignature : ", txSignature)
+	fmt.Println(">txMessageJSON : ", string(txMessageJSON))
+
+	newTxPayload := []interface{}{txType, hex.EncodeToString(txMessageJSON)}
+	txMap["payload"] = newTxPayload
+
+	newTxMap := map[string]interface{}{"payload": newTxPayload, "signature": txSignature}
+	fmt.Println(">newTxMap : ", newTxMap)
+
+	newBroadcast, err := json.Marshal(newTxMap)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("\n***\n>newBroadcast : ", string(newBroadcast))
+
 	// Broadcast to Tendermint
-	res, err := ctx.BroadcastTx(bz)
+	res, err := ctx.BroadcastTx(newBroadcast)
 	if err != nil {
 		return err
 	}
