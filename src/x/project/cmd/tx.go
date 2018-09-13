@@ -55,12 +55,6 @@ func ixoSignAndBroadcast(cdc *wire.Codec, ctx core.CoreContext, msg sdk.Msg, sov
 		panic(err)
 	}
 
-	fmt.Println(">txPayload : ", txPayload)
-	fmt.Println(">txType : ", txType)
-	fmt.Println(">txMessage : ", txMessage)
-	fmt.Println(">txSignature : ", txSignature)
-	fmt.Println(">txMessageJSON : ", string(txMessageJSON))
-
 	newTxPayload := []interface{}{txType, hex.EncodeToString(txMessageJSON)}
 	txMap["payload"] = newTxPayload
 
